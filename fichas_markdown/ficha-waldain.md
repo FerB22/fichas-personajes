@@ -1,5 +1,5 @@
 # Waldáin Helvadur
-*"Wal"*
+*«Wal»*
 
 ## ✦ Datos clave
 * **Rol:** Aprendiz de espada / Guerrero

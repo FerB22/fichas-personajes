@@ -3,7 +3,7 @@
 
 
 # Waldáin Helvadur
-*"Wal"*
+*«Wal»*
 
 ## ✦ Datos clave
 * **Rol:** Aprendiz de espada / Guerrero
@@ -129,7 +129,7 @@
 ==================================================
 
 # Ronan Steinwal
-*"Siempre debe haber cierta independencia, si aprietas mucho, el animal se ahogará"*
+*«Siempre debe haber cierta independencia, si aprietas mucho, el animal se ahogará»*
 
 ## ✦ Datos clave
 * **Rol:** Líder de la tribu Revenst
