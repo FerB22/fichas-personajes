@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgotten Sword - Portal Oficial</title>
+    <title>Forgotten Sword</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
@@ -23,189 +23,104 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 65%),
-                radial-gradient(circle at 50% 100%, rgba(58, 134, 255, 0.04) 0%, transparent 70%);
+                radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 65%),
+                radial-gradient(circle at 50% 80%, rgba(58, 134, 255, 0.05) 0%, transparent 70%);
         }
 
-        .portal-wrapper {
+        .main-container {
             width: 100%;
-            max-width: 960px;
-            margin: 0 auto;
+            max-width: 620px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .portal-header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .portal-header::after {
-            content: '❖ ❖ ❖';
-            color: #9e8237;
-            font-size: 14px;
-            letter-spacing: 12px;
-            display: block;
-            margin-top: 20px;
-        }
-
-        .badge-tag {
+        .saga-title {
             font-family: 'Cinzel', serif;
-            font-size: 12px;
+            font-size: 46px;
+            font-weight: 900;
+            color: #f5eedc;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.9), 0 0 25px rgba(212, 175, 55, 0.25);
+            margin-bottom: 8px;
+        }
+
+        .saga-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #d4af37;
-            display: block;
-            margin-bottom: 12px;
+            margin-bottom: 25px;
         }
 
-        .portal-title {
-            font-family: 'Cinzel', serif;
-            font-size: 44px;
-            font-weight: 900;
-            color: #f5eedc;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.2);
-            margin-bottom: 10px;
+        .divider {
+            color: #9e8237;
+            font-size: 14px;
+            letter-spacing: 12px;
+            margin-bottom: 45px;
         }
 
-        .portal-subtitle {
-            font-style: italic;
-            color: #c4b296;
-            font-size: 18px;
-            max-width: 650px;
-            line-height: 1.6;
-            margin: 0 auto;
-        }
-
-        /* Dual Portal Hub Grid */
-        .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
+        /* Contenedor de los dos botones principales */
+        .buttons-container {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
             margin-bottom: 40px;
         }
 
-        .portal-card {
+        .btn-option {
             text-decoration: none;
-            color: inherit;
-            background: linear-gradient(145deg, #1f150d 0%, #150d07 100%);
-            border: 1px solid #3b2818;
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .portal-card:hover {
-            transform: translateY(-6px);
-            border-color: #d4af37;
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.25);
-        }
-
-        .portal-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-icon {
-            font-size: 42px;
-            margin-bottom: 18px;
-            display: inline-block;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-        }
-
-        .card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 24px;
-            font-weight: 700;
+            justify-content: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #24180e 0%, #170e08 100%);
+            border: 2px solid #9e8237;
+            border-radius: 12px;
+            padding: 22px 28px;
             color: #f5eedc;
-            margin-bottom: 14px;
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .btn-option:hover {
+            transform: translateY(-4px);
+            border-color: #d4af37;
+            background: linear-gradient(135deg, #322214 0%, #1f130b 100%);
+            color: #ffffff;
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn-icon {
+            font-size: 26px;
+        }
+
+        .footer {
+            font-family: 'Cinzel', serif;
+            font-size: 11.5px;
+            color: #a89274;
+            opacity: 0.85;
             letter-spacing: 1px;
         }
 
-        .card-desc {
-            font-size: 14.5px;
-            color: #b8a686;
-            line-height: 1.65;
-            margin-bottom: 26px;
-        }
-
-        .card-btn {
-            font-family: 'Cinzel', serif;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #d4af37;
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid #9e8237;
-            padding: 12px 24px;
-            border-radius: 6px;
-            transition: all 0.25s ease;
-            width: 100%;
-        }
-
-        .portal-card:hover .card-btn {
-            background: #d4af37;
-            color: #120c08;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-        }
-
-        .portal-footer {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 12px;
-            color: #b8a686;
-            opacity: 0.8;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 24px 14px;
+        @media (max-width: 600px) {
+            .saga-title {
+                font-size: 34px;
             }
-
-            .portal-title {
-                font-size: 32px;
-            }
-
-            .portal-subtitle {
-                font-size: 15px;
-            }
-
-            .portal-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .portal-card {
-                padding: 30px 20px;
+            .btn-option {
+                font-size: 17px;
+                padding: 18px 20px;
             }
         }
     </style>
@@ -213,42 +128,30 @@
 
 <body>
 
-    <div class="portal-wrapper">
-        <header class="portal-header">
-            <span class="badge-tag">Saga de Fantasía Épica</span>
-            <h1 class="portal-title">Forgotten Sword</h1>
-            <p class="portal-subtitle">Bienvenido al archivo oficial. Explora las biografías de los personajes o sumérgete en la lectura de la historia.</p>
-        </header>
+    <div class="main-container">
+        <h1 class="saga-title">Forgotten Sword</h1>
+        <p class="saga-subtitle">Selecciona una opción</p>
 
-        <!-- Dos opciones principales -->
-        <main class="portal-grid">
+        <div class="divider">❖ ❖ ❖</div>
 
-            <!-- Opción 1: Capítulos -->
-            <a href="capitulos.html" class="portal-card">
-                <div>
-                    <span class="card-icon">📖</span>
-                    <h2 class="card-title">Capítulos de la Historia</h2>
-                    <p class="card-desc">Accede a la lectura completa de la novela desde el Prólogo místico hasta las grandes batallas por la libertad de las tribus.</p>
-                </div>
-                <div class="card-btn">Leer Capítulos →</div>
+        <!-- Los dos botones principales solicitados -->
+        <div class="buttons-container">
+
+            <a href="personajes.html" class="btn-option">
+                <span class="btn-icon">🛡️</span>
+                <span>Fichas de Personajes</span>
             </a>
 
-            <!-- Opción 2: Fichas de Personajes -->
-            <a href="personajes.html" class="portal-card">
-                <div>
-                    <span class="card-icon">🛡️</span>
-                    <h2 class="card-title">Fichas de Personajes</h2>
-                    <p class="card-desc">Conoce en detalle las biografías, roles, habilidades y arcos dramáticos de los héroes, sanadores y estrategas de la saga.</p>
-                </div>
-                <div class="card-btn">Ver Personajes →</div>
+            <a href="capitulos.html" class="btn-option">
+                <span class="btn-icon">📖</span>
+                <span>Lista de Capítulos</span>
             </a>
 
-        </main>
-
+        </div>
     </div>
 
-    <footer class="portal-footer">
-        Forgotten Sword © 2026 · Archivo Oficial Creado por Fernando Barra
+    <footer class="footer">
+        Forgotten Sword © 2026 · Fernando Barra
     </footer>
 
 </body>
