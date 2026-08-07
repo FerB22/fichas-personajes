@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-        /* 1. Habilitar desplazamiento suave */
         html {
             scroll-behavior: smooth;
         }
@@ -35,6 +34,7 @@
                 radial-gradient(circle at 50% 80%, rgba(58, 134, 255, 0.05) 0%, transparent 70%);
         }
 
+        /* Menú principal */
         .main-container {
             width: 100%;
             max-width: 620px;
@@ -44,6 +44,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        .main-container.hidden {
+            display: none !important;
+        }
+
+        .main-container.closing {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        .main-container.fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
         }
 
         .saga-title {
@@ -113,10 +125,10 @@
             font-size: 26px;
         }
 
-        /* Botón de cierre con estilo medieval */
+        /* Botón de cierre */
         .btn-cerrar {
             margin-bottom: 30px;
-            padding: 10px 22px;
+            padding: 10px 24px;
             background: rgba(212, 175, 55, 0.08);
             color: #d4af37;
             border: 1px solid #9e8237;
@@ -137,31 +149,29 @@
             transform: translateY(-2px);
         }
 
-        /* 2. Secciones ocultas por defecto */
+        /* Secciones ocultas por defecto */
         .seccion-oculta {
             display: none;
             width: 100%;
             max-width: 1080px;
-            margin: 40px auto 0 auto;
-            padding: 20px 0;
+            margin: 0 auto;
+            padding: 10px 0 50px 0;
             text-align: center;
         }
 
-        /* 3. Animación de ENTRADA (fadeIn + translateY) */
         .seccion-oculta.active {
             display: block;
             animation: fadeIn 0.4s ease-out forwards;
         }
 
-        /* 4. Animación de SALIDA (fadeOut + translateY) */
         .seccion-oculta.closing {
-            animation: fadeOut 0.35s ease-in forwards;
+            animation: fadeOut 0.3s ease-in forwards;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(25px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -176,7 +186,7 @@
             }
             to {
                 opacity: 0;
-                transform: translateY(25px);
+                transform: translateY(20px);
             }
         }
 
@@ -233,7 +243,7 @@
             color: #a89274;
             opacity: 0.85;
             letter-spacing: 1px;
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         @media (max-width: 600px) {
@@ -250,14 +260,13 @@
 
 <body>
 
-    <!-- MENÚ / SECCIÓN INICIAL -->
+    <!-- MENÚ PRINCIPAL INICIAL -->
     <main class="main-container" id="menu-principal">
         <h1 class="saga-title">Forgotten Sword</h1>
         <p class="saga-subtitle">Selecciona una opción</p>
 
         <div class="divider">❖ ❖ ❖</div>
 
-        <!-- Los dos botones principales con disparadores de animación -->
         <div class="buttons-container">
 
             <button class="btn-option" onclick="mostrarSeccion('seccion-fichas', 'fichas')">
@@ -273,7 +282,7 @@
         </div>
     </main>
 
-    <!-- SECCIÓN 1: FICHAS DE PERSONAJES (REVELADA CON ANIMACIÓN DE ENTRADA Y SALIDA) -->
+    <!-- SECCIÓN 1: FICHAS DE PERSONAJES -->
     <section class="seccion-oculta" id="seccion-fichas">
         <button class="btn-cerrar" onclick="ocultarSeccion('seccion-fichas')">
             ← Volver al Menú Principal
@@ -354,7 +363,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN 2: LISTA DE CAPÍTULOS (REVELADA CON ANIMACIÓN DE ENTRADA Y SALIDA) -->
+    <!-- SECCIÓN 2: LISTA DE CAPÍTULOS -->
     <section class="seccion-oculta" id="seccion-capitulos">
         <button class="btn-cerrar" onclick="ocultarSeccion('seccion-capitulos')">
             ← Volver al Menú Principal
@@ -436,49 +445,63 @@
         Forgotten Sword © 2026 · Fernando Barra
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT: ANIMACIONES FADEIN / FADEOUT + SMOOTH SCROLL -->
+    <!-- LÓGICA JAVASCRIPT: TRANSICIÓN EXCLUSIVA ENTRE VISTAS -->
     <script>
         function mostrarSeccion(id, hash) {
-            // Ocultar otra sección si estuviera activa
+            const menu = document.getElementById('menu-principal');
+            const target = document.getElementById(id);
+
+            // Ocultar cualquier otra sección que estuviera abierta
             ['seccion-fichas', 'seccion-capitulos'].forEach(secId => {
                 if (secId !== id) {
                     const el = document.getElementById(secId);
-                    if (el) el.classList.remove('active', 'closing');
+                    if (el) {
+                        el.classList.remove('active', 'closing');
+                        el.style.display = 'none';
+                    }
                 }
             });
 
-            const seccion = document.getElementById(id);
-            
-            // Remover animación de cierre previa si existía
-            seccion.classList.remove('closing');
-            
-            // Activar visibilidad y animación de entrada (fadeIn)
-            seccion.classList.add('active');
-            
-            // Actualizar URL hash
-            window.location.hash = hash;
-            
-            // Desplazar suavemente a la sección desplegada
-            seccion.scrollIntoView({ behavior: 'smooth' });
+            // Animar salida del menú principal
+            menu.classList.add('closing');
+
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('closing');
+
+                // Mostrar la nueva sección de forma limpia con fadeIn
+                target.style.display = 'block';
+                target.classList.remove('closing');
+                target.classList.add('active');
+                window.location.hash = hash;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 250);
         }
 
         function ocultarSeccion(id) {
-            const seccion = document.getElementById(id);
-            
-            // Activar la animación de salida (fadeOut)
-            seccion.classList.add('closing');
-            
-            // Iniciar desplazamiento suave de regreso al menú principal arriba
-            document.getElementById('menu-principal').scrollIntoView({ behavior: 'smooth' });
-            
-            // Esperar los 350ms que dura fadeOut antes de remover las clases y ocultar completamente
+            const target = document.getElementById(id);
+            const menu = document.getElementById('menu-principal');
+
+            // Animar salida de la sección activa
+            target.classList.add('closing');
+
             setTimeout(() => {
-                seccion.classList.remove('active', 'closing');
+                target.classList.remove('active', 'closing');
+                target.style.display = 'none';
+
+                // Reaparecer el menú principal limpiamente
+                menu.classList.remove('hidden');
+                menu.classList.add('fadeIn');
                 window.location.hash = '';
-            }, 350);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                setTimeout(() => {
+                    menu.classList.remove('fadeIn');
+                }, 400);
+            }, 250);
         }
 
-        // Auto-abrir sección si la URL contiene #fichas o #capitulos
+        // Auto-abrir según el Hash de la URL al cargar
         window.addEventListener('DOMContentLoaded', () => {
             if (window.location.hash === '#fichas') {
                 mostrarSeccion('seccion-fichas', 'fichas');
