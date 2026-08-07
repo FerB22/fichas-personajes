@@ -13,7 +13,8 @@ $chapters = @(
     @{ num=10; slug="capitulo_10"; title="El perdon y el vacio";              md="Capitulo_10_El_perdon_y_el_vacio.md" },
     @{ num=11; slug="capitulo_11"; title="Miedo al conflicto";                md="Capitulo_11_Miedo_al_conflicto.md" },
     @{ num=12; slug="capitulo_12"; title="La caida de las murallas";          md="Capitulo_12_La_caida_de_las_murallas.md" },
-    @{ num=13; slug="capitulo_13"; title="El retorno de la caballeria";       md="Capitulo_13_El_retorno_de la_caballeria.md" }
+    @{ num=13; slug="capitulo_13"; title="El retorno de la caballeria";       md="Capitulo_13_El_retorno_de la_caballeria.md" },
+    @{ num=14; slug="capitulo_14"; title="El renacer de la paz";             md="Capitulo_14_El_renacer_de_la_paz.md"; inProgress=$true }
 )
 
 $displayTitles = @(
@@ -29,7 +30,8 @@ $displayTitles = @(
     "El perd&oacute;n y el vac&iacute;o",
     "Miedo al conflicto",
     "La ca&iacute;da de las murallas",
-    "El retorno de la caballer&iacute;a"
+    "El retorno de la caballer&iacute;a",
+    "El renacer de la paz (En proceso)"
 )
 
 $mdBase  = "C:\Users\Barra\Documents\Forgotten Sword - Historia Completa\Forgotten_Sword_Editado"
@@ -46,7 +48,11 @@ function Build-Sidebar([int]$currentNum) {
     foreach ($ch in $chapters) {
         $active = if ($ch.num -eq $currentNum) { ' class="active"' } else { '' }
         $disp = $displayTitles[$ch.num - 1]
-        [void]$sb.Append("<li$active><a href=`"$($ch.slug).html`"><span class=`"ch-num`">$('{0:00}' -f $ch.num)</span> $disp</a></li>")
+        if ($ch.inProgress) {
+            [void]$sb.Append("<li style=`"opacity:0.6; cursor:default;`"><a href=`"javascript:void(0)`" style=`"cursor:default; pointer-events:none; color:#a89274;`"><span class=`"ch-num`">$('{0:00}' -f $ch.num)</span> $disp</a></li>")
+        } else {
+            [void]$sb.Append("<li$active><a href=`"$($ch.slug).html`"><span class=`"ch-num`">$('{0:00}' -f $ch.num)</span> $disp</a></li>")
+        }
     }
     [void]$sb.Append('</ul>')
     return $sb.ToString()
@@ -106,6 +112,7 @@ $template = Get-Content $tplPath -Raw -Encoding UTF8
 
 # ---- Generate ----
 foreach ($ch in $chapters) {
+    if ($ch.inProgress) { continue }
     $mdPath = Join-Path $mdBase $ch.md
     if (!(Test-Path $mdPath)) { Write-Warning "Missing: $mdPath"; continue }
 
