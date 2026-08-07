@@ -58,6 +58,8 @@ function Convert-MDBody([string]$raw) {
     $body = $raw -replace '(?s)^---.*?---\s*', ''
     # 2. Remove H1 header
     $body = $body -replace '(?m)^# .+', ''
+    # 3. Strip any trailing navigation block at the end of the file
+    $body = $body -replace '(?s)\s*---\s*[\r\n\s]*.*?(Capitulo_\d+|Forgotten%20Sword).*$', ''
 
     $lines = $body -split '\r?\n'
     $html = [System.Text.StringBuilder]::new()
@@ -65,32 +67,37 @@ function Convert-MDBody([string]$raw) {
     foreach ($line in $lines) {
         $t = $line.Trim()
 
-        # Skip any line containing Markdown links to chapters or index (e.g. [← Capítulo ...], [Índice General], etc.)
-        if ($t -match 'Capitulo_\d+' -or $t -match 'Cap&iacute;tulo' -or $t -match '\[.*?(Capítulo|Capitulo|Índice|Indice).*?\]' -or $t -match 'Capítulo' -or $t -match 'Forgotten%20Sword') {
+        # Skip any line containing Markdown links to chapters or index
+        if ($t -match 'Capitulo_\d+' -or $t -match 'Cap&iacute;tulo' -or $t -match '\[.*?(Capítulo|Capitulo|Índice|Indice).*?\]' -or $t -match 'Forgotten%20Sword') {
+            continue
+        }
+
+        # Epigraph blockquote (starts with '>')
+        if ($t.StartsWith(">")) {
+            $qClean = $t -replace '^\s*>\s*', '' -replace '^[\s\*«\xab]+', '' -replace '[\s\*»\xbb]+$', ''
+            $qSafe = [System.Web.HttpUtility]::HtmlEncode($qClean.Trim())
+            [void]$html.Append("<blockquote class=`"epigraph`">&#171;$qSafe&#187;</blockquote>`n")
             continue
         }
 
         if ($t -eq '***' -or $t -eq '---') {
-            [void]$html.Append('<div class="scene-break">&#10042; &#10042; &#10042;</div>')
+            [void]$html.Append("<div class=`"scene-break`">&#10042; &#10042; &#10042;</div>`n")
             continue
         }
-        if ($t -match '^\s*>\s') {
-            $q = $t -replace '^\s*>\s*\*?', '' -replace '\*?\s*$', ''
-            $q = [System.Web.HttpUtility]::HtmlEncode($q)
-            [void]$html.Append("<blockquote class=`"epigraph`">$q</blockquote>")
-            continue
-        }
+
         if ($t -match '^[—–-]' -or $t -match '^»') {
             $cls = if ($t -match '^»') { 'dialogue-cont' } else { 'dialogue' }
             $safe = [System.Web.HttpUtility]::HtmlEncode($t)
-            [void]$html.Append("<p class=`"$cls`">$safe</p>")
+            [void]$html.Append("<p class=`"$cls`">$safe</p>`n")
             continue
         }
+
         if ([string]::IsNullOrWhiteSpace($t)) { continue }
 
         $safe = [System.Web.HttpUtility]::HtmlEncode($t)
-        [void]$html.Append("<p>$safe</p>")
+        [void]$html.Append("<p>$safe</p>`n")
     }
+
     return $html.ToString()
 }
 
