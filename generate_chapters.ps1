@@ -16,7 +16,6 @@ $chapters = @(
     @{ num=13; slug="capitulo_13"; title="El retorno de la caballeria";       md="Capitulo_13_El_retorno_de la_caballeria.md" }
 )
 
-# Proper display titles (with accents and special chars)
 $displayTitles = @(
     "El peso de los tatuajes",
     "El consejo de H&iacute;ltar",
@@ -55,8 +54,15 @@ function Build-Sidebar([int]$currentNum) {
 
 # ---- MD Body to HTML ----
 function Convert-MDBody([string]$raw) {
+    # Remove YAML front matter
     $body = $raw -replace '(?s)^---.*?---\s*', ''
+    # Remove H1 header
     $body = $body -replace '(?m)^# .+', ''
+    # Remove bottom navigation Markdown links and trailing ---
+    $body = $body -replace '(?s)\r?\n---\s*\r?\n\s*\[.+?\].*$', ''
+    $body = $body -replace '(?m)^\s*\[.*?(Cap&iacute;tulo|Cap\xedtulo|Capitulo|&Iacute;ndice|\xcdndice|Indice).*?\].*$', ''
+    $body = $body -replace '(?m)^\s*---\s*$', ''
+
     $lines = $body -split '\r?\n'
     $html = [System.Text.StringBuilder]::new()
 
