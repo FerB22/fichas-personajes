@@ -54,14 +54,10 @@ function Build-Sidebar([int]$currentNum) {
 
 # ---- MD Body to HTML ----
 function Convert-MDBody([string]$raw) {
-    # Remove YAML front matter
+    # 1. Remove YAML front matter
     $body = $raw -replace '(?s)^---.*?---\s*', ''
-    # Remove H1 header
+    # 2. Remove H1 header
     $body = $body -replace '(?m)^# .+', ''
-    # Remove bottom navigation Markdown links and trailing ---
-    $body = $body -replace '(?s)\r?\n---\s*\r?\n\s*\[.+?\].*$', ''
-    $body = $body -replace '(?m)^\s*\[.*?(Cap&iacute;tulo|Cap\xedtulo|Capitulo|&Iacute;ndice|\xcdndice|Indice).*?\].*$', ''
-    $body = $body -replace '(?m)^\s*---\s*$', ''
 
     $lines = $body -split '\r?\n'
     $html = [System.Text.StringBuilder]::new()
@@ -69,7 +65,12 @@ function Convert-MDBody([string]$raw) {
     foreach ($line in $lines) {
         $t = $line.Trim()
 
-        if ($t -eq '***') {
+        # Skip any line containing Markdown links to chapters or index (e.g. [← Capítulo ...], [Índice General], etc.)
+        if ($t -match 'Capitulo_\d+' -or $t -match 'Cap&iacute;tulo' -or $t -match '\[.*?(Capítulo|Capitulo|Índice|Indice).*?\]' -or $t -match 'Capítulo' -or $t -match 'Forgotten%20Sword') {
+            continue
+        }
+
+        if ($t -eq '***' -or $t -eq '---') {
             [void]$html.Append('<div class="scene-break">&#10042; &#10042; &#10042;</div>')
             continue
         }
