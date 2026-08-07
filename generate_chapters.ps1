@@ -72,11 +72,11 @@ function Convert-MDBody([string]$raw) {
             continue
         }
 
-        # Epigraph blockquote (starts with '>')
+        # Epigraph blockquote (starts with '>') -> Colocar punto final DESPUÉS de las comillas angulares: «...».
         if ($t.StartsWith(">")) {
-            $qClean = $t -replace '^\s*>\s*', '' -replace '^[\s\*«\xab]+', '' -replace '[\s\*»\xbb]+$', ''
+            $qClean = $t -replace '^\s*>\s*', '' -replace '^[\s\*«\xab]+', '' -replace '[\s\*»\xbb\.]+$', ''
             $qSafe = [System.Web.HttpUtility]::HtmlEncode($qClean.Trim())
-            [void]$html.Append("<blockquote class=`"epigraph`">&#171;$qSafe&#187;</blockquote>`n")
+            [void]$html.Append("<blockquote class=`"epigraph`">&#171;$qSafe&#187;.</blockquote>`n")
             continue
         }
 
