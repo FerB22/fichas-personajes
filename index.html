@@ -4,67 +4,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Fichas de Personajes - Forgotten Sword</title>
+    <title>Forgotten Sword - Portal Oficial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
-        }
-        html, body {
-            width: 100%;
             margin: 0;
-            padding: 40px 20px;
-            background-color: #140d07;
-            font-family: Georgia, serif;
-            color: #f2e8d5;
-            min-height: 100vh;
-            overflow-x: hidden;
+            padding: 0;
         }
-        .contenedor-galeria {
+
+        body {
             width: 100%;
-            max-width: 1080px;
+            background-color: #120c08;
+            color: #e8dcc4;
+            font-family: 'Lora', Georgia, serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 65%),
+                radial-gradient(circle at 50% 100%, rgba(58, 134, 255, 0.04) 0%, transparent 70%);
+        }
+
+        .portal-wrapper {
+            width: 100%;
+            max-width: 960px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .grid-personajes {
+
+        .portal-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .portal-header::after {
+            content: '❖ ❖ ❖';
+            color: #9e8237;
+            font-size: 14px;
+            letter-spacing: 12px;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .badge-tag {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #d4af37;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .portal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 44px;
+            font-weight: 900;
+            color: #f5eedc;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .portal-subtitle {
+            font-style: italic;
+            color: #c4b296;
+            font-size: 18px;
+            max-width: 650px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        /* Dual Portal Hub Grid */
+        .portal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .portal-card {
+            text-decoration: none;
+            color: inherit;
+            background: linear-gradient(145deg, #1f150d 0%, #150d07 100%);
+            border: 1px solid #3b2818;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-6px);
+            border-color: #d4af37;
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.25);
+        }
+
+        .portal-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 42px;
+            margin-bottom: 18px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #f5eedc;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .card-desc {
+            font-size: 14.5px;
+            color: #b8a686;
+            line-height: 1.65;
+            margin-bottom: 26px;
+        }
+
+        .card-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid #9e8237;
+            padding: 12px 24px;
+            border-radius: 6px;
+            transition: all 0.25s ease;
             width: 100%;
         }
-        .tarjeta-item {
-            background-color: #21170e;
-            border: 1px solid #4a3622;
-            border-radius: 6px;
-            padding: 24px 20px;
+
+        .portal-card:hover .card-btn {
+            background: #d4af37;
+            color: #120c08;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .portal-footer {
             text-align: center;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.6);
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: #b8a686;
+            opacity: 0.8;
+            margin-top: 20px;
         }
-        .tarjeta-item:hover {
-            transform: translateY(-3px);
-            border-color: #c49a45;
-            box-shadow: 0 6px 22px rgba(0,0,0,0.8);
-        }
+
         @media (max-width: 768px) {
-            html, body {
-                padding: 20px 10px;
+            body {
+                padding: 24px 14px;
             }
-            .titulo-principal {
-                font-size: 26px !important;
+
+            .portal-title {
+                font-size: 32px;
             }
-            .subtitulo {
-                font-size: 17px !important;
+
+            .portal-subtitle {
+                font-size: 15px;
             }
-            .grid-personajes {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
-                gap: 16px !important;
+
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-        }
-        @media (max-width: 480px) {
-            .grid-personajes {
-                grid-template-columns: 1fr !important;
+
+            .portal-card {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -72,155 +213,43 @@
 
 <body>
 
-    <div class="contenedor-galeria">
-        <header style="text-align:center; max-width:750px; margin-bottom:35px; width:100%;">
-            <h1 class="titulo-principal" style="font-size:32px; color:#d4af37; margin:0 0 10px 0; letter-spacing:1.5px; text-shadow:2px 2px 4px rgba(0,0,0,0.8);">✦ Forgotten Sword ✦</h1>
-            <h2 class="subtitulo" style="font-size:20px; color:#c49a45; font-weight:normal; margin:0 0 15px 0; font-style:italic;">Galería de Fichas de Personajes</h2>
-            <p style="font-size:14px; color:#c4b296; line-height:1.6; margin:0;">Colección oficial de fichas de los personajes principales de la saga. Haz clic en cualquier tarjeta para abrir su ficha detallada.</p>
+    <div class="portal-wrapper">
+        <header class="portal-header">
+            <span class="badge-tag">Saga de Fantasía Épica</span>
+            <h1 class="portal-title">Forgotten Sword</h1>
+            <p class="portal-subtitle">Bienvenido al archivo oficial. Explora las biografías de los personajes o sumérgete en la lectura de la historia.</p>
         </header>
 
-        <div style="width:100%; max-width:750px; margin-bottom:30px;">
-            <a href="prologo.html" style="text-decoration:none; display:block;">
-                <div style="background: linear-gradient(135deg, #2d1f11 0%, #1a1209 100%); border: 1px solid #c49a45; border-radius: 8px; padding: 18px 24px; text-align: center; box-shadow: 0 4px 20px rgba(212,175,55,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease;">
-                    <span style="font-size:11px; color:#d4af37; letter-spacing:3px; text-transform:uppercase; display:block; margin-bottom:6px;">✦ LECTURA DESTACADA ✦</span>
-                    <h3 style="margin:0 0 6px 0; font-size:22px; color:#f5eedc;">Prólogo: El Anciano del Claro</h3>
-                    <p style="margin:0; font-size:14px; color:#c4b296; font-style:italic;">«Incluso en lo más oscuro del espacio hay estrellas que fulguran.»</p>
+        <!-- Dos opciones principales -->
+        <main class="portal-grid">
+
+            <!-- Opción 1: Capítulos -->
+            <a href="capitulos.html" class="portal-card">
+                <div>
+                    <span class="card-icon">📖</span>
+                    <h2 class="card-title">Capítulos de la Historia</h2>
+                    <p class="card-desc">Accede a la lectura completa de la novela desde el Prólogo místico hasta las grandes batallas por la libertad de las tribus.</p>
                 </div>
-            </a>
-        </div>
-
-        <!-- Sección de Capítulos -->
-        <section style="width:100%; max-width:1080px; margin-bottom:40px;">
-            <h2 style="font-family:'Georgia',serif; font-size:14px; letter-spacing:3px; text-transform:uppercase; color:#c49a45; text-align:center; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #3b2818;">&#10022; Capítulos de la Saga &#10022;</h2>
-            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px;">
-                <a href="capitulos/capitulo_01.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 01</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El peso de los tatuajes</p>
-                </a>
-                <a href="capitulos/capitulo_02.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 02</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El consejo de Híltar</p>
-                </a>
-                <a href="capitulos/capitulo_03.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 03</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">Tierra sagrada</p>
-                </a>
-                <a href="capitulos/capitulo_04.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 04</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">Entrenamiento y temores</p>
-                </a>
-                <a href="capitulos/capitulo_05.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 05</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El Cónclave tribal</p>
-                </a>
-                <a href="capitulos/capitulo_06.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 06</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">Bajo la lluvia embarrada</p>
-                </a>
-                <a href="capitulos/capitulo_07.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 07</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">La responsabilidad del líder</p>
-                </a>
-                <a href="capitulos/capitulo_08.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 08</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El nacimiento en tiempos de guerra</p>
-                </a>
-                <a href="capitulos/capitulo_09.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 09</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">La necesidad de la guerra</p>
-                </a>
-                <a href="capitulos/capitulo_10.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 10</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El perdón y el vacío</p>
-                </a>
-                <a href="capitulos/capitulo_11.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 11</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">Miedo al conflicto</p>
-                </a>
-                <a href="capitulos/capitulo_12.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 12</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">La caída de las murallas</p>
-                </a>
-                <a href="capitulos/capitulo_13.html" style="text-decoration:none; display:block; background:#1c130c; border:1px solid #3b2818; border-radius:6px; padding:12px 14px; transition:border-color .2s, transform .2s;" onmouseover="this.style.borderColor='#d4af37';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#3b2818';this.style.transform='none'">
-                    <span style="font-size:10px; color:#9e8237; font-family:'Georgia',serif; letter-spacing:2px;">CAP. 13</span>
-                    <p style="margin:3px 0 0 0; font-size:13.5px; color:#e8dcc4; line-height:1.3;">El retorno de la caballería</p>
-                </a>
-            </div>
-        </section>
-
-        <main class="grid-personajes">
-
-            <a href="personajes/ficha-waldain.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">PROTAGONISTA</span>
-                    <h3 style="margin:0 0 4px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Waldáin Helvadur</h3>
-                    <p style="margin:0 0 10px 0; font-size:13px; font-style:italic; color:#a89274;">«Wal»</p>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Aprendiz de espada de la tribu Raumo y líder de la resistencia.</p>
-                </div>
+                <div class="card-btn">Leer Capítulos →</div>
             </a>
 
-            <a href="personajes/ficha-hlied.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">ARQUERA TRIBAL</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Hlied Steinwal</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Arquera de la protección tribal en la tribu Revenst.</p>
+            <!-- Opción 2: Fichas de Personajes -->
+            <a href="personajes.html" class="portal-card">
+                <div>
+                    <span class="card-icon">🛡️</span>
+                    <h2 class="card-title">Fichas de Personajes</h2>
+                    <p class="card-desc">Conoce en detalle las biografías, roles, habilidades y arcos dramáticos de los héroes, sanadores y estrategas de la saga.</p>
                 </div>
-            </a>
-
-            <a href="personajes/ficha-skaivan.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">MENTOR / HERMANO</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Skaivan Helvadur</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Guerrero noble y faro de integridad moral para su familia.</p>
-                </div>
-            </a>
-
-            <a href="personajes/ficha-sauri.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">SANADORA</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Sauri Steinwal</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Médica tribal y hermana gemela de Hald.</p>
-                </div>
-            </a>
-
-            <a href="personajes/ficha-ronan.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">LÍDER TRIBAL</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Ronan Steinwal</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Líder soberano de la tribu Revenst.</p>
-                </div>
-            </a>
-
-            <a href="personajes/ficha-hald.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">GUERRERO DE ÉLITE</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Hald Steinwal</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Feroz combatiente de vanguardia y gemelo de Sauri.</p>
-                </div>
-            </a>
-
-            <a href="personajes/ficha-deschast.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">ESTRATEGA</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Deschast</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Estratega de la Unificación imperial y líder de la tribu Royái.</p>
-                </div>
-            </a>
-
-            <a href="personajes/ficha-rey-de-gricai.html" style="text-decoration:none; color:inherit;">
-                <div class="tarjeta-item">
-                    <span style="font-size:10px; color:#c49a45; letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:8px;">SOBERANO IMPERIAL</span>
-                    <h3 style="margin:0 0 10px 0; font-size:22px; color:#f5eedc; font-weight:bold;">Rey de Gricái</h3>
-                    <p style="margin:0; font-size:13.5px; color:#c4b296; line-height:1.5;">Monarca despótico cuya tiranía desencadena la contienda.</p>
-                </div>
+                <div class="card-btn">Ver Personajes →</div>
             </a>
 
         </main>
 
-        <footer style="margin-top:45px; text-align:center; font-size:11.5px; color:#a89274; opacity:0.85; width:100%;">
-            Archivo personal · Fernando Barra · Forgotten Sword © 2026
-        </footer>
     </div>
+
+    <footer class="portal-footer">
+        Forgotten Sword © 2026 · Archivo Oficial Creado por Fernando Barra
+    </footer>
 
 </body>
 
